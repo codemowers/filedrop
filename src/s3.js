@@ -6,7 +6,7 @@ const BUCKET = process.env.S3_BUCKET || 'codemowers-agent-system.filedrop';
 const ENDPOINT = process.env.S3_ENDPOINT || 'http://minio.minio:9000';
 const ACCESS_KEY = process.env.S3_ACCESS_KEY;
 const SECRET_KEY = process.env.S3_SECRET_KEY;
-const REGION = process.env.S3_REGION || 'us-east-1';
+const REGION = process.env.S3_REGION || 'ee-lte-1';
 
 let s3;
 
