@@ -35,9 +35,6 @@ spec:
             - configMapRef:
                 name: filedrop-config
             - secretRef:
-                name: filedrop-s3
-                optional: false
-            - secretRef:
                 name: oidc-client-filedrop-owner-secrets
                 optional: true
           env:
@@ -51,6 +48,16 @@ spec:
                 secretKeyRef:
                   name: filedrop-s3
                   key: secretKey
+            - name: S3_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: filedrop-s3
+                  key: endpoint
+            - name: S3_REGION
+              valueFrom:
+                secretKeyRef:
+                  name: filedrop-s3
+                  key: region
           volumeMounts:
             - name: db
               mountPath: /data
