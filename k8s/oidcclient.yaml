@@ -15,7 +15,8 @@ spec:
     - openid
     - profile
     - email
-  ingressRef:
-    name: filedrop
-  redirectPaths:
-    - /auth/callback
+  uri: "https://filedrop.codemowers-agent-system.ee-lte-1.codemowers.io"
+  redirectUris:
+    - "https://filedrop.codemowers-agent-system.ee-lte-1.codemowers.io/auth/callback"
+  allowedCORSOrigins:
+    - "https://filedrop.codemowers-agent-system.ee-lte-1.codemowers.io"

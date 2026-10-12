@@ -15,7 +15,7 @@ const PORT = parseInt(process.env.PORT || '3000');
 const ACCESS_MODE = process.env.ACCESS_MODE || 'upload-authenticated';
 const MAX_FILE_SIZE = parseInt(process.env.MAX_FILE_SIZE || String(50 * 1024 * 1024));
 const OIDC_CLIENT_ID = process.env.OIDC_CLIENT_ID || '';
-const OIDC_ISSUER_URL = process.env.OIDC_ISSUER_URL || '';
+const OIDC_ISSUER_URL = process.env.OIDC_IDP_URI || process.env.OIDC_ISSUER_URL || '';
 const OIDC_CLIENT_ORIGIN = process.env.OIDC_CLIENT_ORIGIN || '';
 
 // MIME types safe for inline preview
