@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: filedrop-config
+  namespace: codemowers-agent-system
+data:
+  ACCESS_MODE: "upload-authenticated"
+  PORT: "3000"
+  DB_PATH: "/data/filedrop.db"
+  S3_BUCKET: "codemowers-agent-system.filedrop"
+  # S3 in-cluster endpoint for the minio/default instance.
+  # Update if your minio service is at a different address.
+  S3_ENDPOINT: "http://minio.minio:9000"
+  S3_REGION: "us-east-1"
+  MAX_FILE_SIZE: "52428800"

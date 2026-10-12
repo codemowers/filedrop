@@ -1,0 +1,10 @@
+apiVersion: s3.onyxia.sh/v1alpha1
+kind: Bucket
+metadata:
+  name: filedrop
+  namespace: codemowers-agent-system
+spec:
+  # spec.name omitted — expanded to codemowers-agent-system.filedrop by admission
+  s3InstanceRef: minio/default
+  quota:
+    default: 10737418240  # 10 GiB in bytes (required as integer by sandbox guard)

@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: filedrop
+  namespace: codemowers-agent-system
+  annotations:
+    # ingress-cert-manager mutation applies letsencrypt TLS automatically.
+    # ingress-expand-hostnames expands 'filedrop' to the full platform hostname.
+    # sandbox-wildcard-tls is applied automatically for sandbox namespaces.
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: filedrop
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: filedrop
+                port:
+                  number: 80

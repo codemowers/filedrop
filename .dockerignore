@@ -1,0 +1,12 @@
+node_modules/
+*.db
+*.db-shm
+*.db-wal
+.git/
+.gitignore
+k8s/
+skaffold.yaml
+skaffold.env*
+progress.md
+specs/
+AGENTS.md

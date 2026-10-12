@@ -1,0 +1,21 @@
+apiVersion: codemowers.cloud/v1
+kind: OIDCClient
+metadata:
+  name: filedrop
+  namespace: codemowers-agent-system
+spec:
+  displayName: FileDrop
+  grantTypes:
+    - authorization_code
+  responseTypes:
+    - code
+  pkce: true
+  tokenEndpointAuthMethod: "none"
+  availableScopes:
+    - openid
+    - profile
+    - email
+  ingressRef:
+    name: filedrop
+  redirectPaths:
+    - /auth/callback

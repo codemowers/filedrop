@@ -1,0 +1,11 @@
+apiVersion: s3.onyxia.sh/v1alpha1
+kind: S3User
+metadata:
+  name: filedrop
+  namespace: codemowers-agent-system
+spec:
+  # accessKey omitted — set to codemowers-agent-system.filedrop by admission (s3-user-identity-defaults)
+  s3InstanceRef: minio/default
+  secretName: filedrop-s3
+  policies:
+    - codemowers-agent-system.filedrop

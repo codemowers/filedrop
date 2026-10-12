@@ -1,0 +1,22 @@
+apiVersion: s3.onyxia.sh/v1alpha1
+kind: Policy
+metadata:
+  name: filedrop
+  namespace: codemowers-agent-system
+spec:
+  name: codemowers-agent-system.filedrop
+  s3InstanceRef: minio/default
+  policyContent: |
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": ["s3:GetObject","s3:PutObject","s3:DeleteObject","s3:ListBucket","s3:GetBucketLocation"],
+          "Resource": [
+            "arn:aws:s3:::codemowers-agent-system.filedrop",
+            "arn:aws:s3:::codemowers-agent-system.filedrop/*"
+          ]
+        }
+      ]
+    }
