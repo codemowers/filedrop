@@ -6,6 +6,7 @@ metadata:
 spec:
   selector:
     app: filedrop
+  ipFamilyPolicy: PreferDualStack
   ports:
     - port: 80
       targetPort: 3000

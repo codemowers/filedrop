@@ -443,6 +443,6 @@ SESSION_SECRET = getSessionSecret();
 runCleanup();
 setInterval(runCleanup, 5 * 60 * 1000);
 
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, '::', () => {
   console.log(`FileDrop listening on :${PORT} [mode=${ACCESS_MODE}]`);
 });
