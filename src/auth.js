@@ -42,12 +42,7 @@ async function validateJwt(token, expectedIssuer, expectedAudience) {
   const discovery = await getOidcDiscovery(iss);
   const client = getJwksClient(discovery.jwks_uri);
 
-  const signingKey = await new Promise((resolve, reject) => {
-    client.getSigningKey(decoded.header.kid, (err, key) => {
-      if (err) reject(err);
-      else resolve(key.getPublicKey());
-    });
-  });
+  const signingKey = (await client.getSigningKey(decoded.header.kid)).getPublicKey();
 
   const payload = jwt.verify(token, signingKey, {
     algorithms: ['RS256', 'ES256', 'PS256'],

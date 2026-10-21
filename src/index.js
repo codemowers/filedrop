@@ -2,7 +2,6 @@
 const express = require('express');
 const multer = require('multer');
 const cookieParser = require('cookie-parser');
-const { v4: uuidv4 } = require('uuid');
 const crypto = require('crypto');
 const path = require('path');
 const { rateLimit } = require('express-rate-limit');
@@ -249,7 +248,7 @@ app.post('/api/files', anonLimiter, upload.array('files', 10), async (req, res) 
   const results = [];
   for (const f of req.files) {
     const contentType = detectMime(f.buffer);
-    const id = uuidv4();
+    const id = crypto.randomUUID();
     const shareToken = genToken();
     let mgmtToken = null, mgmtHash = null;
     if (!req.user) {
@@ -299,10 +298,11 @@ app.put('/api/files/:id', (req, res) => {
   if (!file || file.cleanup_done) return res.status(404).json({ error: 'Not found' });
   if (!checkOwnership(file, req)) return res.status(403).json({ error: 'Access denied' });
   if (isExpired(file)) return res.status(410).json({ error: 'File expired' });
-  const { visibility, expiresAt } = req.body;
+  const body = req.body || {};
+  const { visibility, expiresAt } = body;
   const sets = [], vals = [];
   if (visibility === 'public' || visibility === 'private') { sets.push('visibility=?'); vals.push(visibility); }
-  if ('expiresAt' in req.body) {
+  if ('expiresAt' in body) {
     if (expiresAt !== null && expiresAt <= Date.now()) return res.status(400).json({ error: 'Expiry in past' });
     sets.push('expires_at=?'); vals.push(expiresAt ?? null);
   }
@@ -423,7 +423,7 @@ app.get('/auth/login', (req, res) => res.redirect('/?login=1' + (req.query.next 
 app.get('/auth/callback', (req, res) => res.sendFile(path.join(__dirname, '..', 'public', 'index.html')));
 
 // ── SPA fallback ──────────────────────────────────────────────────────────────
-app.get('*', (req, res) => res.sendFile(path.join(__dirname, '..', 'public', 'index.html')));
+app.get('/{*splat}', (req, res) => res.sendFile(path.join(__dirname, '..', 'public', 'index.html')));
 
 // ── Cleanup job ───────────────────────────────────────────────────────────────
 function runCleanup() {
